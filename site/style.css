@@ -173,15 +173,6 @@ main a.cta { color: var(--surface); }
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------- 常見問題 ---------- */
-
-.faq-q {
-  font-weight: 600;
-  margin: 24px 0 4px;
-}
-
-.faq-a { margin: 0 0 14px; }
-
 /* ---------- 未定案項目 ---------- */
 
 .pending {
@@ -193,7 +184,94 @@ main a.cta { color: var(--surface); }
   color: var(--muted);
 }
 
-/* ---------- 頁尾（四頁一致） ---------- */
+/* ---------- 產品格狀排列（參考版面：兩欄卡片） ---------- */
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.product-grid .product { margin-bottom: 0; }
+
+.product .price {
+  color: var(--primary-deep);
+  font-weight: 700;
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+  margin: 0 0 10px;
+}
+
+/* ---------- 常見問題：下拉展開收合 ---------- */
+
+.faq-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.faq-item > summary {
+  cursor: pointer;
+  padding: 14px 44px 14px 18px;
+  font-weight: 600;
+  position: relative;
+  list-style: none;
+  transition: background .15s ease;
+}
+
+/* 移除瀏覽器預設三角標記 */
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary::marker { content: ""; }
+
+.faq-item > summary:hover { background: #FFF9F3; }
+
+.faq-item > summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+/* 右側加號，展開時轉為減號 */
+.faq-item > summary::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  background: var(--primary);
+  transform: translateY(-50%);
+}
+
+.faq-item > summary::before {
+  content: "";
+  position: absolute;
+  right: 23px;
+  top: 50%;
+  width: 2px;
+  height: 12px;
+  background: var(--primary);
+  transform: translateY(-50%);
+  transition: transform .15s ease, opacity .15s ease;
+}
+
+.faq-item[open] > summary::before {
+  transform: translateY(-50%) rotate(90deg);
+  opacity: 0;
+}
+
+.faq-item[open] > summary { border-bottom: 1px solid var(--border); }
+
+.faq-body {
+  padding: 14px 18px 16px;
+}
+
+.faq-body p { margin: 0; }
+.faq-body .pending { margin: 0; }
+
+/* ---------- 頁尾（五頁一致） ---------- */
 
 footer {
   border-top: 1px solid var(--border);
@@ -218,4 +296,7 @@ footer {
   }
 
   h1 { font-size: 26px; }
+
+  /* 參考版面：寬螢幕時產品改為兩欄 */
+  .product-grid { grid-template-columns: 1fr 1fr; }
 }
