@@ -47,15 +47,31 @@ def post_json(url, payload, headers, timeout=180):
 # ---------- 各供應商轉接 ----------
 # 每個函式回傳 PNG/JPEG 的 bytes。
 
-def gen_openai(prompt, key, model, size):
+# OpenAI 支援的尺寸有限，依 manifest 的長寬比挑最接近的。
+# 版面用 object-fit: cover 裁切，不需精準吻合。
+_OPENAI_SIZE = {
+    "gpt-image-1": {"1:1": "1024x1024", "4:3": "1536x1024", "16:9": "1536x1024"},
+    "dall-e-3":    {"1:1": "1024x1024", "4:3": "1792x1024", "16:9": "1792x1024"},
+}
+
+
+def gen_openai(prompt, key, model, size, ratio="1:1"):
     model = model or "gpt-image-1"
-    d = post_json("https://api.openai.com/v1/images/generations",
-                  {"model": model, "prompt": prompt, "size": f"{size}x{size}", "n": 1},
+    dims = _OPENAI_SIZE.get(model, _OPENAI_SIZE["gpt-image-1"]).get(ratio, "1024x1024")
+    payload = {"model": model, "prompt": prompt, "size": dims, "n": 1}
+    # dall-e 系列預設回傳網址，要明講才給 base64；gpt-image-1 不接受這個參數。
+    if model.startswith("dall-e"):
+        payload["response_format"] = "b64_json"
+    d = post_json("https://api.openai.com/v1/images/generations", payload,
                   {"Authorization": f"Bearer {key}"})
-    return base64.b64decode(d["data"][0]["b64_json"])
+    item = d["data"][0]
+    if item.get("b64_json"):
+        return base64.b64decode(item["b64_json"])
+    with urllib.request.urlopen(item["url"], timeout=180) as r:
+        return r.read()
 
 
-def gen_google(prompt, key, model, size):
+def gen_google(prompt, key, model, size, ratio="1:1"):
     model = model or "imagen-3.0-generate-002"
     url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
            f"{model}:predict?key={key}")
@@ -64,7 +80,7 @@ def gen_google(prompt, key, model, size):
     return base64.b64decode(d["predictions"][0]["bytesBase64Encoded"])
 
 
-def gen_stability(prompt, key, model, size):
+def gen_stability(prompt, key, model, size, ratio="1:1"):
     model = model or "sd3.5-large"
     d = post_json("https://api.stability.ai/v2beta/stable-image/generate/sd3",
                   {"prompt": prompt, "model": model, "output_format": "png"},
@@ -72,7 +88,7 @@ def gen_stability(prompt, key, model, size):
     return base64.b64decode(d["image"])
 
 
-def gen_replicate(prompt, key, model, size):
+def gen_replicate(prompt, key, model, size, ratio="1:1"):
     if not model:
         sys.exit("replicate 需要在 IMAGE_MODEL 填完整的 owner/model:version")
     d = post_json("https://api.replicate.com/v1/predictions",
@@ -109,15 +125,15 @@ def main():
             sys.exit(f"找不到這些 id：{', '.join(sorted(missing))}")
 
     if not a.dry_run:
-        provider = os.environ.get("IMAGE_PROVIDER", "").strip().lower()
+        provider = os.environ.get("IMAGE_PROVIDER", "").strip().lower() or "openai"
         key = os.environ.get("IMAGE_API_KEY", "").strip()
-        if not provider:
-            sys.exit("IMAGE_PROVIDER 沒有設定。請複製 .env.example 為 .env 後填寫。")
         if provider not in PROVIDERS:
             sys.exit(f"不支援的 IMAGE_PROVIDER：{provider}。"
                      f"可用：{', '.join(PROVIDERS)}")
         if not key:
-            sys.exit("IMAGE_API_KEY 沒有設定。請在 .env 填入你的金鑰。")
+            sys.exit("IMAGE_API_KEY 沒有設定。\n"
+                     "請執行 cp .env.example .env，再把 OpenAI 的金鑰"
+                     "（sk- 開頭）填進 IMAGE_API_KEY。")
         model = os.environ.get("IMAGE_MODEL", "").strip()
         size = int(os.environ.get("IMAGE_SIZE", "1024"))
         fn = PROVIDERS[provider]
@@ -136,7 +152,7 @@ def main():
             skipped += 1
             continue
         print(f"產生中  {it['id']} …", flush=True)
-        dest.write_bytes(fn(full, key, model, size))
+        dest.write_bytes(fn(full, key, model, size, it.get("ratio", "1:1")))
         print(f"  完成  {dest.relative_to(ROOT)}  "
               f"{dest.stat().st_size // 1024} KB")
         made += 1

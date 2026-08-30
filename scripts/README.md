@@ -20,10 +20,26 @@ python3 scripts/generate_images.py
 | `python3 scripts/generate_images.py --only hero-home` | 只畫指定的一張 |
 | `python3 scripts/generate_images.py --dry-run` | 只印提示詞，不呼叫 API，不需金鑰 |
 
-## 支援的供應商
+## 供應商
 
-在 `.env` 的 `IMAGE_PROVIDER` 填 `openai`、`google`、`stability` 或 `replicate`。
-`IMAGE_MODEL` 留空會用各家預設值；`replicate` 一定要填完整的 `owner/model:version`。
+預設是 OpenAI，`.env` 裡只需要填 `IMAGE_API_KEY`（ChatGPT 的 API key，`sk-` 開頭）。
+
+模型預設 `gpt-image-1`。若帳號尚未完成組織驗證，呼叫時會拿到 403，
+此時把 `IMAGE_MODEL` 改成 `dall-e-3` 即可。兩者的回應格式不同，腳本已分別處理。
+
+也支援 `google`、`stability`、`replicate`，改 `IMAGE_PROVIDER` 即可。
+`replicate` 一定要在 `IMAGE_MODEL` 填完整的 `owner/model:version`。
+
+## 尺寸
+
+`image_prompts.json` 每張圖的 `ratio` 決定送出的尺寸：
+
+| ratio | gpt-image-1 | dall-e-3 |
+|-------|-------------|----------|
+| `1:1` | 1024x1024 | 1024x1024 |
+| `4:3` / `16:9` | 1536x1024 | 1792x1024 |
+
+版面用 `object-fit: cover` 裁切，不需要精準吻合。
 
 ## 改圖片內容
 
