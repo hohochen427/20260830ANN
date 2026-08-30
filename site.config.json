@@ -1,0 +1,100 @@
+{
+  "_note": "網站結構設定。site/ 的五支 HTML 由 scripts/build_site.py 依本檔與 content/ 產生，不手動編輯。新增頁面＝在 pages 加一筆；調整導覽＝改 nav；換檔期＝改 campaign。",
+
+  "site": {
+    "lang": "zh-Hant",
+    "brand": "星光家電 Starlight Home",
+    "titleSuffix": "星光家電",
+    "email": "service@starlight-demo.example",
+    "stylesheet": "style.css",
+    "imageDir": "images"
+  },
+
+  "_campaignNote": "對應 design/brief.md 的「這一版的主題」。到期後由行銷更新 brief.md，再同步本段。",
+  "campaign": {
+    "heading": "五週年，謝謝你把家交給我們",
+    "ctaLabel": "看週年慶優惠",
+    "ctaTarget": "products",
+    "featureProduct": "SL-410 掃地機器人",
+    "featureFields": ["價格", "規格", "保固"],
+    "startDate": "2026-09-15",
+    "endDate": "2026-10-15"
+  },
+
+  "_textNote": "未定案項目在頁面上的呈現方式，依 memory/decisions.md 2026-06-01 與 2026-08-30 兩筆決定。",
+  "text": {
+    "pendingBlock": "請來信客服，信箱見頁尾。",
+    "pendingField": "請來信客服",
+    "footerLabel": "客服信箱",
+    "productsTagline": "保固說明：主機保固一年，耗材不在保固範圍內。"
+  },
+
+  "_internalNote": "含這些字樣的段落屬內部作業規範，不輸出到對外頁面。",
+  "internalMarkers": ["客服不得", "轉人工處理", "內部參考", "撰寫規範", "撰稿規範", "起停用"],
+
+  "_excludeNote": "整段不輸出的來源段落標題。",
+  "excludeSections": ["對外回覆規範", "不上架品項", "撰稿規範（內部參考，不對外顯示）"],
+
+  "nav": [
+    { "key": "products", "label": "產品" },
+    { "key": "faq",      "label": "常見問題" },
+    { "key": "policy",   "label": "政策說明" },
+    { "key": "contact",  "label": "聯絡客服" }
+  ],
+
+  "pages": [
+    {
+      "key": "index",
+      "file": "index.html",
+      "title": "星光家電 Starlight Home",
+      "layout": "home",
+      "taglineFrom": { "source": "about.md", "paragraph": 1 },
+      "blocks": [
+        { "type": "campaignFeature" },
+        { "type": "section", "source": "about.md", "section": "銷售通路" }
+      ]
+    },
+    {
+      "key": "products",
+      "file": "products.html",
+      "title": "產品清單",
+      "h1": "產品清單",
+      "taglineText": "@text.productsTagline",
+      "blocks": [
+        { "type": "productGrid", "source": "products.md",
+          "fields": ["適用坪數", "規格", "保固"], "priceField": "價格" }
+      ]
+    },
+    {
+      "key": "faq",
+      "file": "faq.html",
+      "title": "常見問題",
+      "h1": "常見問題",
+      "blocks": [
+        { "type": "faqList", "source": "faq.md" }
+      ]
+    },
+    {
+      "key": "policy",
+      "file": "policy.html",
+      "title": "政策說明",
+      "h1": "政策說明",
+      "blocks": [
+        { "type": "allSections", "source": "policy.md" }
+      ]
+    },
+    {
+      "key": "contact",
+      "file": "contact.html",
+      "title": "聯絡客服",
+      "h1": "聯絡客服",
+      "taglineFrom": { "source": "about.md", "paragraph": 1 },
+      "blocks": [
+        { "type": "section", "source": "about.md", "section": "聯絡客服" },
+        { "type": "section", "source": "about.md", "section": "銷售通路" },
+        { "type": "section", "source": "policy.md", "section": "出貨時間" },
+        { "type": "section", "source": "policy.md", "section": "維修送修方式" }
+      ]
+    }
+  ]
+}
