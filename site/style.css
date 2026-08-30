@@ -1,0 +1,192 @@
+:root {
+  --color-primary: #E8752A;
+  --color-primary-dark: #C25E1B;
+  --color-bg: #FAF7F2;
+  --color-ink: #2A2320;
+  --color-muted: #6B6259;
+  --color-border: #E6DED4;
+  --color-surface: #FFFFFF;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, sans-serif;
+  line-height: 1.7;
+}
+
+.wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+header.site-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+header.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+nav.site-nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+nav.site-nav a:hover { color: var(--color-primary); }
+
+.hero {
+  padding: 56px 0 40px;
+}
+
+.hero h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.hero p.tagline {
+  color: var(--color-muted);
+  font-size: 16px;
+  margin: 0 0 20px;
+}
+
+.badge-note {
+  display: inline-block;
+  font-size: 13px;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.campaign-banner {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.campaign-banner .info h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.campaign-banner .info p {
+  margin: 0;
+  font-size: 14px;
+  opacity: .95;
+}
+
+.campaign-banner .cta {
+  background: #fff;
+  color: var(--color-primary);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+section { padding: 32px 0; }
+
+section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.product-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 1px 3px rgba(42, 35, 32, .06);
+}
+
+.product-card h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.product-card .price {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 15px;
+  margin: 6px 0;
+}
+
+.product-card .spec {
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+details.faq-item {
+  border-bottom: 1px solid var(--color-border);
+  padding: 14px 0;
+}
+
+details.faq-item summary {
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+details.faq-item p {
+  margin: 10px 0 0;
+  color: var(--color-ink);
+  font-size: 15px;
+}
+
+.note-gap {
+  border: 1px dashed var(--color-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--color-muted);
+  background: #FFF6EC;
+}
+
+footer.site-footer {
+  border-top: 1px solid var(--color-border);
+  margin-top: 24px;
+  padding: 28px 0;
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+footer.site-footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
