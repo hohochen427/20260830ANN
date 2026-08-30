@@ -2,9 +2,5 @@
 .env
 .env.local
 
-# 生成的圖片檔（體積大，可由 scripts/generate_images.py 重建）
-site/images/*.png
-site/images/*.jpg
-site/images/*.webp
-!site/images/.gitkeep
+# Python 暫存
 __pycache__/
