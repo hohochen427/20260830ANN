@@ -1,11 +1,30 @@
 {
   "permissions": {
     "deny": [
-      "Read(./restricted/**)"
+      "Read(./restricted/**)",
+      "Bash(cat restricted/*)",
+      "Bash(head restricted/*)",
+      "Bash(tail restricted/*)",
+      "Bash(less restricted/*)",
+      "Bash(grep * restricted/*)"
     ],
     "ask": [
       "Write(./content/**)",
       "Edit(./content/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.command // empty' | grep -qE '(^|[^A-Za-z0-9_./-])restricted/' && printf '%s' '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"deny\",\"permissionDecisionReason\":\"CLAUDE.md 規則 9：不得讀取 restricted/ 底下任何檔案\"}}' || true",
+            "statusMessage": "檢查 restricted/ 存取"
+          }
+        ]
+      }
     ]
   }
 }
