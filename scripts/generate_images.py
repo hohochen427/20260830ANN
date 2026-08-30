@@ -55,7 +55,7 @@ _OPENAI_SIZE = {
 }
 
 
-def gen_openai(prompt, key, model, size, ratio="1:1"):
+def gen_openai(prompt, key, model, ratio="1:1"):
     model = model or "gpt-image-1"
     dims = _OPENAI_SIZE.get(model, _OPENAI_SIZE["gpt-image-1"]).get(ratio, "1024x1024")
     payload = {"model": model, "prompt": prompt, "size": dims, "n": 1}
@@ -71,7 +71,7 @@ def gen_openai(prompt, key, model, size, ratio="1:1"):
         return r.read()
 
 
-def gen_google(prompt, key, model, size, ratio="1:1"):
+def gen_google(prompt, key, model, ratio="1:1"):
     model = model or "imagen-3.0-generate-002"
     url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
            f"{model}:predict?key={key}")
@@ -80,7 +80,7 @@ def gen_google(prompt, key, model, size, ratio="1:1"):
     return base64.b64decode(d["predictions"][0]["bytesBase64Encoded"])
 
 
-def gen_stability(prompt, key, model, size, ratio="1:1"):
+def gen_stability(prompt, key, model, ratio="1:1"):
     model = model or "sd3.5-large"
     d = post_json("https://api.stability.ai/v2beta/stable-image/generate/sd3",
                   {"prompt": prompt, "model": model, "output_format": "png"},
@@ -88,7 +88,7 @@ def gen_stability(prompt, key, model, size, ratio="1:1"):
     return base64.b64decode(d["image"])
 
 
-def gen_replicate(prompt, key, model, size, ratio="1:1"):
+def gen_replicate(prompt, key, model, ratio="1:1"):
     if not model:
         sys.exit("replicate 需要在 IMAGE_MODEL 填完整的 owner/model:version")
     d = post_json("https://api.replicate.com/v1/predictions",
@@ -135,7 +135,6 @@ def main():
                      "請執行 cp .env.example .env，再把 OpenAI 的金鑰"
                      "（sk- 開頭）填進 IMAGE_API_KEY。")
         model = os.environ.get("IMAGE_MODEL", "").strip()
-        size = int(os.environ.get("IMAGE_SIZE", "1024"))
         fn = PROVIDERS[provider]
 
     OUT.mkdir(parents=True, exist_ok=True)
@@ -152,7 +151,7 @@ def main():
             skipped += 1
             continue
         print(f"產生中  {it['id']} …", flush=True)
-        dest.write_bytes(fn(full, key, model, size, it.get("ratio", "1:1")))
+        dest.write_bytes(fn(full, key, model, it.get("ratio", "1:1")))
         print(f"  完成  {dest.relative_to(ROOT)}  "
               f"{dest.stat().st_size // 1024} KB")
         made += 1
