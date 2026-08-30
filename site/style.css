@@ -275,11 +275,29 @@ main a.cta { color: var(--surface); }
 /* 圖片由 scripts/generate_images.py 產生，尚未產生時整塊不顯示，版面不會破。 */
 
 .figure {
+  position: relative;
   margin: 0 0 22px;
   border-radius: 8px;
   overflow: hidden;
   background: var(--surface);
   border: 1px solid var(--border);
+}
+
+/* 所有配圖一律標示為示意圖，避免被當成實際商品照。
+   標籤掛在 .figure 上，圖片載入失敗整塊隱藏時會一起消失。 */
+.figure::after {
+  content: "示意圖";
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background: rgba(43, 43, 43, 0.72);
+  color: #FFFFFF;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  border-radius: 4px;
+  pointer-events: none;
 }
 
 .figure img {
