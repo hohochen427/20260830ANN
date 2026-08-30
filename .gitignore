@@ -1,0 +1,10 @@
+# 金鑰不進版控
+.env
+.env.local
+
+# 生成的圖片檔（體積大，可由 scripts/generate_images.py 重建）
+site/images/*.png
+site/images/*.jpg
+site/images/*.webp
+!site/images/.gitkeep
+__pycache__/

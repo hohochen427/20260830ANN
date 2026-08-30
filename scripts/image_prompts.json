@@ -1,0 +1,108 @@
+{
+  "_note": "每一筆對應 site/ 的一個段落。prompt 依該段語意撰寫，不是資訊解說卡。style 為全站共用語彙，會自動接在每個 prompt 後面。",
+
+  "style": "Soft natural daylight photography, warm off-white and muted terracotta palette, calm domestic Taiwanese apartment, uncluttered, shallow depth of field, no text, no logos, no watermarks, no people's faces, no charts or diagrams or infographic elements, photorealistic, editorial interior magazine quality",
+
+  "images": [
+    {
+      "id": "hero-home",
+      "page": "index",
+      "section": "五週年，謝謝你把家交給我們",
+      "alt": "傍晚的客廳，窗邊灑進柔和光線",
+      "ratio": "16:9",
+      "prompt": "A quiet living room in late afternoon, sheer curtains moving slightly, warm light falling across a wooden floor and a low sofa, a child's toy left near the rug, the feeling of a home someone actually lives in"
+    },
+    {
+      "id": "sl410-robot",
+      "page": "index",
+      "section": "SL-410 掃地機器人（首頁主打）",
+      "alt": "掃地機器人在木地板上運作",
+      "ratio": "4:3",
+      "prompt": "A low round robot vacuum moving across a light wooden floor beside a sofa leg, seen from a low angle, soft shadow beneath it, ordinary living room in the background slightly out of focus"
+    },
+    {
+      "id": "channel-online",
+      "page": "index",
+      "section": "銷售通路：只有官網銷售，沒有實體門市",
+      "alt": "宅配紙箱放在門口地墊上",
+      "ratio": "4:3",
+      "prompt": "A plain unbranded cardboard parcel resting on a doormat just inside an apartment entryway, morning light from a frosted door panel, a pair of slippers to one side"
+    },
+
+    {
+      "id": "sl100-purifier",
+      "page": "products",
+      "section": "SL-100 星光空氣清淨機",
+      "alt": "空氣清淨機立在客廳角落",
+      "ratio": "1:1",
+      "prompt": "A compact white cylindrical air purifier standing on a wooden floor in a corner of a bright living room, a green plant beside it, clean minimal styling"
+    },
+    {
+      "id": "sl100s-purifier-plus",
+      "page": "products",
+      "section": "SL-100S 星光空氣清淨機 Plus",
+      "alt": "空氣清淨機放在臥室床邊，夜間安靜運轉",
+      "ratio": "1:1",
+      "prompt": "A slightly larger white air purifier beside a bed in a dim quiet bedroom at night, a single small indicator light glowing softly, calm and still atmosphere"
+    },
+    {
+      "id": "sl220-dehumidifier",
+      "page": "products",
+      "section": "SL-220 除濕機 12L",
+      "alt": "除濕機放在陽台門邊，窗上有水氣",
+      "ratio": "1:1",
+      "prompt": "A white household dehumidifier standing near a balcony door on a humid grey day, condensation beading on the glass behind it, laundry drying on a rack out of focus"
+    },
+    {
+      "id": "sl050-fan",
+      "page": "products",
+      "section": "SL-050 桌上型循環扇",
+      "alt": "小型循環扇放在書桌上",
+      "ratio": "1:1",
+      "prompt": "A small white desktop circulation fan on a wooden desk beside an open notebook and a mug, warm afternoon light from a nearby window"
+    },
+    {
+      "id": "sl410-robot-product",
+      "page": "products",
+      "section": "SL-410 掃地機器人",
+      "alt": "掃地機器人停在充電座上",
+      "ratio": "1:1",
+      "prompt": "A round white robot vacuum docked on its charging base against a plain wall, wooden floor, soft even daylight, product-in-the-home framing"
+    },
+    {
+      "id": "slf100-filter",
+      "page": "products",
+      "section": "SL-F100 濾網耗材",
+      "alt": "換下的圓筒濾網放在桌面上",
+      "ratio": "1:1",
+      "prompt": "A cylindrical pleated air filter cartridge lying on a table next to the open lid of an air purifier, honest everyday maintenance scene, neutral background"
+    },
+
+    {
+      "id": "faq-questions",
+      "page": "faq",
+      "section": "常見問題（頁首）",
+      "alt": "有人坐在餐桌前用手機查資料",
+      "ratio": "16:9",
+      "prompt": "Hands holding a phone at a kitchen table, a household appliance box partly visible at the edge of the frame, someone looking something up before deciding, seen over the shoulder, face not visible"
+    },
+
+    {
+      "id": "policy-terms",
+      "page": "policy",
+      "section": "政策說明（頁首）",
+      "alt": "攤開的紙本說明書與原子筆",
+      "ratio": "16:9",
+      "prompt": "An open printed leaflet and a pen resting on a plain table, folded creases visible, calm neutral daylight, the quiet moment of reading the terms"
+    },
+
+    {
+      "id": "contact-service",
+      "page": "contact",
+      "section": "聯絡客服（頁首）",
+      "alt": "桌上的筆電與便條紙",
+      "ratio": "16:9",
+      "prompt": "A tidy desk with an open laptop turned slightly away, a notepad and pen beside it, a mug of tea, the calm workspace of someone answering messages, no screen content visible"
+    }
+  ]
+}

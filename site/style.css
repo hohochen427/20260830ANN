@@ -271,6 +271,47 @@ main a.cta { color: var(--surface); }
 .faq-body p { margin: 0; }
 .faq-body .pending { margin: 0; }
 
+/* ---------- 段落配圖 ---------- */
+/* 圖片由 scripts/generate_images.py 產生，尚未產生時整塊不顯示，版面不會破。 */
+
+.figure {
+  margin: 0 0 22px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* 產品卡內的配圖為方形，置於標題之上 */
+.product .figure {
+  margin: -16px -18px 14px;
+  border: 0;
+  border-radius: 8px 8px 0 0;
+}
+
+.product .figure img { aspect-ratio: 1 / 1; }
+
+/* 首頁主打卡的配圖 */
+.feature .figure {
+  margin: -18px -18px 16px;
+  border: 0;
+  border-radius: 8px 8px 0 0;
+}
+
+.feature .figure img { aspect-ratio: 4 / 3; }
+
+/* 圖片載入失敗或尚未產生時隱藏整塊，避免破圖 */
+.figure img:not([src]),
+.figure img[src=""] { display: none; }
+
 /* ---------- 頁尾（五頁一致） ---------- */
 
 footer {
