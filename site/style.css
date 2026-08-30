@@ -7,6 +7,7 @@
   --ink: #2B2B2B;       /* 文字深灰 */
 
   /* 由上述三色衍生的輔助色 */
+  --primary-deep: #B85615; /* 內文連結用，#E8752A 於米白底對比不足 4.5:1 */
   --muted: #6B6259;
   --border: #E6DED4;
   --surface: #FFFFFF;
@@ -69,8 +70,17 @@ nav a {
   font-size: 15px;
 }
 
-nav a:hover,
-nav a:focus { color: var(--primary); }
+nav a:hover { color: var(--primary); }
+
+/* 鍵盤操作可見焦點 */
+.brand:focus-visible,
+nav a:focus-visible,
+main a:focus-visible,
+footer a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
 
 /* ---------- 內文 ---------- */
 
@@ -79,12 +89,14 @@ main { padding: 28px 0 40px; }
 h1 {
   font-size: 24px;
   line-height: 1.5;
+  text-wrap: balance;
   margin: 0 0 12px;
 }
 
 h2 {
   font-size: 19px;
   line-height: 1.5;
+  text-wrap: balance;
   margin: 28px 0 8px;
 }
 
@@ -96,9 +108,13 @@ h3 {
 
 p { margin: 0 0 14px; }
 
-ul { padding-left: 22px; }
+ul {
+  padding-left: 22px;
+  margin: 0 0 14px;
+}
 
-a { color: var(--primary); }
+main a,
+footer a { color: var(--primary-deep); }
 
 .tagline {
   color: var(--muted);
@@ -128,9 +144,16 @@ a { color: var(--primary); }
   color: var(--surface);
   text-decoration: none;
   font-weight: 700;
-  padding: 10px 20px;
+  padding: 11px 22px;
   border-radius: 6px;
+  line-height: 1.4;
+  transition: background .15s ease;
 }
+
+.cta:hover { background: var(--primary-deep); }
+
+/* CTA 為橘底白字，不套用內文連結色 */
+main a.cta { color: var(--surface); }
 
 /* ---------- 產品卡 ---------- */
 
@@ -147,6 +170,7 @@ a { color: var(--primary); }
 .product ul {
   margin: 0;
   font-size: 15px;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- 常見問題 ---------- */
@@ -176,6 +200,12 @@ footer {
   padding: 22px 0;
   color: var(--muted);
   font-size: 15px;
+}
+
+/* ---------- 動態偏好 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }
 
 /* ---------- 寬螢幕微調（手機優先，由小往大加） ---------- */
